@@ -5,7 +5,7 @@ import (
     "syscall"
     "time"
 
-    "github.com/Arman92/go-tdlib"
+    "github.com/c0re100/go-tdlib"
     "golang.org/x/crypto/ssh/terminal"
 )
 
@@ -70,7 +70,7 @@ func main() {
                 fmt.Println(err)
                 return
             }
-            f9.UID = me.ID
+            f9.UID = me.Id
             fmt.Println("Hello!", me.FirstName, me.LastName, "("+me.Username+")")
             break
         }

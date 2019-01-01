@@ -3,7 +3,7 @@ package main
 import (
     "fmt"
 
-    "github.com/Arman92/go-tdlib"
+    "github.com/c0re100/go-tdlib"
 )
 
 // Send Online status request to keep your telegram always online
@@ -19,7 +19,7 @@ func (f9 *Client) StatusHook() {
     fmt.Println("[F9Hook] Offline Status hooked.")
     eventFilter := func(msg *tdlib.TdMessage) bool {
         updateMsg := (*msg).(*tdlib.UpdateUserStatus)
-        if updateMsg.UserID == f9.UID && updateMsg.Status.GetUserStatusEnum() == "userStatusOffline" {
+        if updateMsg.UserId == f9.UID && updateMsg.Status.GetUserStatusEnum() == "userStatusOffline" {
             return true
         }
         return false
@@ -37,7 +37,7 @@ func (f9 *Client) MessageHook() {
     fmt.Println("[F9HOOK] Outgoing Message hooked.")
     eventFilter := func(msg *tdlib.TdMessage) bool {
         updateMsg := (*msg).(*tdlib.UpdateChatReadOutbox)
-        chatID := updateMsg.ChatID
+        chatID := updateMsg.ChatId
         // Ensure a user is not a group, channel.
         if chatID > 0 {
             return true
@@ -48,7 +48,7 @@ func (f9 *Client) MessageHook() {
     receiver := f9.client.AddEventReceiver(&tdlib.UpdateChatReadOutbox{}, eventFilter, 100)
     for newMsg := range receiver.Chan {
         updateMsg := (newMsg).(*tdlib.UpdateChatReadOutbox)
-        chatID := updateMsg.ChatID
+        chatID := updateMsg.ChatId
         u, err := f9.client.GetUser(int32(chatID))
         if err != nil {
             fmt.Println(err.Error())
@@ -58,7 +58,7 @@ func (f9 *Client) MessageHook() {
         if u.Type.GetUserTypeEnum() != "userTypeRegular" {
             continue
         }
-        msgID := updateMsg.LastReadOutboxMessageID
+        msgID := updateMsg.LastReadOutboxMessageId
         m, err := f9.client.GetMessage(chatID, msgID)
         if err != nil {
             fmt.Println(err.Error())
