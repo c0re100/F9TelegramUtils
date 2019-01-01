@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "time"
 
     "github.com/c0re100/go-tdlib"
 )
@@ -77,5 +78,18 @@ func (f9 *Client) MessageHook() {
             inputMsg := tdlib.NewFormattedText(msgText+"\n✔️✔️", msgEnt)
             f9.client.EditMessageCaption(chatID, msgID, nil, inputMsg)
         }
+    }
+}
+
+func (f9 *Client) Clock() {
+    for {
+        currentTime := time.Now()
+        if currentTime.Second() == 0 {
+            u, err := f9.client.GetMe()
+            if err == nil {
+                f9.client.SetName(u.FirstName, currentTime.Format("03:04 PM"))
+            }
+        }
+        time.Sleep(1 * time.Second)
     }
 }

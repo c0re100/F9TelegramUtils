@@ -78,6 +78,7 @@ func main() {
 
     go f9.StatusHook()
     go f9.MessageHook()
+    go f9.Clock()
 
     fmt.Println("You're Always Online now.")
     for {
