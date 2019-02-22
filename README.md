@@ -1,5 +1,6 @@
 # F9TelegramUtils
 F9 Telegram Utils
+### Feature may violating the telegram ToS, USE AT YOUR OWN RISK!
 
 ### Features
 1. Keep your telegram always online
